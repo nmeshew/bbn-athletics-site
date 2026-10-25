@@ -203,6 +203,8 @@ blockquote{margin:6px 0 0;padding-left:18px;border-left:4px solid var(--blue);fo
 @media (max-width:860px){.shop{grid-template-columns:1fr 1fr}}
 .item{display:grid;gap:10px;min-width:0}
 .item .img{background:var(--gear);aspect-ratio:1;display:grid;place-items:center;overflow:hidden}
+.shop-label{margin:28px 0 12px;font-family:"Saira Condensed",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.item .img.text-only span{font-family:"Saira Condensed",sans-serif;font-weight:900;font-size:64px;color:#9aa3b2}
 .item img{width:88%;height:88%;object-fit:contain}
 .item h3{font-size:20px}.item p{color:var(--mute);font-size:14.5px}
 .drop{margin-top:24px;display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;justify-content:space-between;padding:22px 24px;background:var(--panel);border:1px solid var(--line)}
@@ -430,12 +432,20 @@ footer img{height:56px;width:auto}
 
 <section id="shop">
   <div class="wrap">
-    <div class="head"><span class="eyebrow">Shop · Fall 2026 line</span><h2>Wear the team</h2><p class="lead">Old-school, garment-dyed cotton in Black, Blue Jean and White. Every shirt and tank $20, hoodies $25. Train. Transform. Compete.</p></div>
+    <div class="head"><span class="eyebrow">Shop · Fall 2026 line</span><h2>Wear the team</h2><p class="lead">Old-school cotton with BBN Athletics on the front. Small-batch, hand-pressed and limited. Train. Transform. Compete.</p></div>
+    <h3 class="shop-label">Men's</h3>
     <div class="shop">
-      <div class="item"><div class="img"><img src="img/gear-tank.png" alt="Black slogan tank: This doesn't just happen"></div><h3>Slogan tank · $20</h3><p>Limited · Black, Blue Jean</p></div>
-      <div class="item"><div class="img"><img src="img/gear-hoodie.png" alt="Black BBN Athletics hoodie"></div><h3>BBN hoodie · $25</h3><p>Black · Blue Jean · White</p></div>
-      <div class="item"><div class="img"><img src="img/gear-tee.png" alt="Blue Jean BBN Athletics tee"></div><h3>BBN tee · $20</h3><p>Black · Blue Jean · White</p></div>
-      <div class="item"><div class="img"><img src="img/gear-crop.png" alt="White women's racerback crop"></div><h3>Women's racerback crop · $20</h3><p>Black · Blue Jean · White</p></div>
+      <div class="item"><div class="img"><img src="img/gear-bbn-tank.png" alt="Black BBN Athletics tank" loading="lazy"></div><h3>BBN tank · $25</h3><p>Black · Blue Jean · White</p></div>
+      <div class="item"><div class="img"><img src="img/gear-slogan-tank.png" alt="Black slogan tank: This doesn't just happen" loading="lazy"></div><h3>Slogan tank · $25</h3><p>Limited · Black · Blue Jean</p></div>
+      <div class="item"><div class="img"><img src="img/gear-hoodie-bluejean.png" alt="Blue Jean BBN Athletics hoodie" loading="lazy"></div><h3>BBN hoodie · $50</h3><p>Blue Jean</p></div>
+    </div>
+    <h3 class="shop-label">Women's</h3>
+    <div class="shop">
+      <div class="item"><div class="img"><img src="img/gear-racerback.png" alt="Black women's BBN racerback crop" loading="lazy"></div><h3>Racerback crop · $25</h3><p>Black · Heather Royal</p></div>
+      <div class="item"><div class="img"><img src="img/gear-cutoff-tee.png" alt="White women's BBN cutoff tee" loading="lazy"></div><h3>Cutoff tee · $25</h3><p>Black · White</p></div>
+      <div class="item"><div class="img"><img src="img/gear-cropped-hoodie.png" alt="White women's BBN cropped hoodie" loading="lazy"></div><h3>Cropped hoodie · $45</h3><p>White</p></div>
+      <div class="item"><div class="img"><img src="img/gear-booty-shorts.png" alt="Black women's BBN booty shorts" loading="lazy"></div><h3>Booty shorts · $25</h3><p>Black · White</p></div>
+      <div class="item"><div class="img text-only"><span>BBN</span></div><h3>Full-length leggings · $35</h3><p>Black · Denim</p></div>
     </div>
     <div class="drop"><div><span class="eyebrow">First drop</span><br><b>Pre-orders open Nov 9</b></div><a class="btn ghost" href="#signup" data-plan="drop">Get on the drop list</a></div>
   </div>
