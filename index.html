@@ -205,6 +205,7 @@ blockquote{margin:6px 0 0;padding-left:18px;border-left:4px solid var(--blue);fo
 .item .img{background:var(--gear);aspect-ratio:1;display:grid;place-items:center;overflow:hidden}
 .item .img{position:relative}.item .img img.back{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .25s}.item:hover .img img.back,.item:focus-within .img img.back{opacity:1}
 .item .img img{width:100%;height:100%;object-fit:cover}
+.team-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:8px 0 8px}.team-strip figure{margin:0;position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/5}.team-strip img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}.team-strip figure:hover img{transform:scale(1.04)}.team-strip figcaption{position:absolute;left:0;right:0;bottom:0;padding:12px 14px;background:linear-gradient(transparent,rgba(0,0,0,.85));font-family:"Saira Condensed",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:15px}.team-note{margin:0 0 26px;color:var(--blue-hi);font-family:"Saira Condensed",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.08em}@media(max-width:760px){.team-strip{grid-template-columns:repeat(2,1fr)}}
 .team-photo{margin:0 0 26px;border-radius:14px;overflow:hidden;position:relative;max-width:560px}.team-photo img{width:100%;display:block}.team-photo figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;background:linear-gradient(transparent,rgba(0,0,0,.85));font-family:"Saira Condensed",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
 .shop-label{margin:28px 0 12px;font-family:"Saira Condensed",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
 .item .img.text-only{background:radial-gradient(circle at 50% 40%,#304a8c,#080a10 75%)}
@@ -437,7 +438,13 @@ footer img{height:56px;width:auto}
 <section id="shop">
   <div class="wrap">
     <div class="head"><span class="eyebrow">Shop · Fall 2026 line</span><h2>Wear the team</h2><p class="lead">Old-school cotton with BBN Athletics on the front. Small-batch, hand-pressed and limited. Train. Transform. Compete.</p></div>
-    <figure class="team-photo"><img src="img/team-hurricane-2026.jpg?v=2" alt="Coach Nick Meshew with his Hurricane Bay medal and Debbie in the black BBN Athletics crop tee" loading="lazy"><figcaption>Worn by Team BBN · 2026 NPC Hurricane Bay</figcaption></figure>
+    <div class="team-strip">
+      <figure><img src="img/team-hurricane-2026.jpg?v=2" alt="Coach Nick Meshew with his Hurricane Bay medal and Debbie in the black BBN Athletics crop tee" loading="lazy"><figcaption>Hurricane Bay · Oct 2026</figcaption></figure>
+      <figure><img src="img/team-debbie-nick.jpg" alt="Debbie in the black BBN Athletics tee with Coach Nick after Hurricane Bay" loading="lazy"><figcaption>Debbie · BBN crop tee</figcaption></figure>
+      <figure><img src="img/team-nick-dunkin.jpg" alt="Coach Nick in the white BBN Athletics tee" loading="lazy"><figcaption>Coach Nick · BBN tee</figcaption></figure>
+      <figure><img src="img/team-nick-tee.jpg" alt="Coach Nick in the white BBN Athletics tee wearing his Hurricane Pro-Am medal" loading="lazy"><figcaption>Medal day · BBN tee</figcaption></figure>
+    </div>
+    <p class="team-note">Worn by Team BBN. Real athletes, real shows, real medals.</p>
     <h3 class="shop-label">Men's</h3>
     <div class="shop">
       <div class="item"><div class="img"><img src="img/gear-bbn-tank.jpg" alt="Black BBN Athletics tank, front" loading="lazy"><img class="back" src="img/gear-bbn-tank-back.jpg" alt="Black BBN Athletics tank, back" loading="lazy"></div><h3>BBN tank · $26</h3><p>Black · Blue Jean · White</p></div>
