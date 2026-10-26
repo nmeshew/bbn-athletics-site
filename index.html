@@ -494,6 +494,8 @@ footer img{height:56px;width:auto}
         <label for="name">Name<input id="name" autocomplete="name" required></label>
         <label for="email">Email<input id="email" type="email" autocomplete="email" required></label>
       </div>
+      <label for="phone">Phone (optional, for your 15-minute call)<input id="phone" type="tel" autocomplete="tel"></label>
+      <input id="company" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
       <div class="two">
         <label for="goal">Goal
           <select id="goal"><option>Compete in my first show</option><option>Place higher at my next show</option><option>Lose fat, keep muscle</option><option>Build muscle</option></select>
@@ -505,7 +507,8 @@ footer img{height:56px;width:auto}
       <label for="about">Food likes, injuries, schedule<textarea id="about" placeholder="Example: train 5 days, 6 AM. No dairy. Old shoulder injury."></textarea></label>
       <div class="total"><span>Today</span><b id="total">$450</b></div>
       <button class="btn" type="submit">Send my sign-up</button>
-      <div class="done" id="done" hidden>Your email app should open with your sign-up filled in. Hit send, and Coach Nick replies within 24 hours with your secure payment link. If nothing opened, email <b>bbnathletics1970@gmail.com</b> or DM <b>@bbnathletics1970</b> on Instagram.</div>
+      <div class="done" id="done" hidden>Got it! Coach Nick will reach out within 24 hours with your secure payment link and to set up your start. Questions? DM <b>@bbnathletics1970</b> on Instagram.</div>
+      <div class="done" id="fail" hidden>That didn't go through. Please email <b>bbnathletics1970@gmail.com</b> or DM <b>@bbnathletics1970</b> on Instagram and we'll get you started.</div>
     </form>
   </div>
 </section>
@@ -524,12 +527,19 @@ footer img{height:56px;width:auto}
   function upd(){var o=sel.options[sel.selectedIndex], p=+o.dataset.price, m=/month/.test(o.text);total.textContent=p?('$'+p+(m?' / mo':'')):'Free';}
   sel.addEventListener('change',upd); upd();
   document.querySelectorAll('[data-plan]').forEach(function(a){a.addEventListener('click',function(){sel.value=a.dataset.plan;upd();});});
-  document.getElementById('signupForm').addEventListener('submit',function(e){e.preventDefault();
-    var g=function(id){return document.getElementById(id).value;};
-    var o=sel.options[sel.selectedIndex].text;
-    var body='Plan: '+o+'\nName: '+g('name')+'\nEmail: '+g('email')+'\nGoal: '+g('goal')+'\nDivision: '+g('division')+'\n\nAbout me: '+g('about');
-    location.href='mailto:bbnathletics1970@gmail.com?subject='+encodeURIComponent('BBN sign-up: '+o)+'&body='+encodeURIComponent(body);
-    document.getElementById('done').hidden=false;});
+  var LEAD_URL='https://script.google.com/macros/s/AKfycbzKznbP2yjACjjuVdztB70Og3NZNtzBMW-WpzbXYjRBQafvEydPCiyAR1lkh-llV0MQ/exec';
+  var form=document.getElementById('signupForm');
+  form.addEventListener('submit',function(e){e.preventDefault();
+    var g=function(id){return document.getElementById(id).value.trim();};
+    if(!g('name')||!/^\S+@\S+\.\S+$/.test(g('email'))){form.reportValidity();return;}
+    var o=sel.options[sel.selectedIndex], btn=form.querySelector('button');
+    var data=new URLSearchParams({plan:o.text,name:g('name'),email:g('email'),phone:g('phone'),goal:g('goal'),division:g('division'),about:g('about'),company:g('company'),page:location.pathname});
+    btn.disabled=true; btn.textContent='Sending...';
+    fetch(LEAD_URL,{method:'POST',mode:'no-cors',body:data}).then(function(){
+      document.getElementById('done').hidden=false; btn.textContent='Sent';
+      if(window.gtag) gtag('event','generate_lead',{currency:'USD',value:+o.dataset.price||0,plan:o.value});
+    }).catch(function(){document.getElementById('fail').hidden=false; btn.disabled=false; btn.textContent='Send my sign-up';});
+  });
 })();
 </script>
 
