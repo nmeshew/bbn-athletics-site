@@ -504,9 +504,6 @@ footer img{height:56px;width:auto}
           <select id="division"><option>Not sure yet</option><option>Men's Bodybuilding</option><option>Classic Physique</option><option>Men's Physique</option><option>Bikini</option><option>Figure</option><option>Wellness</option><option>Masters (40+)</option></select>
         </label>
       </div>
-      <label for="heard">How did you hear about BBN?
-        <select id="heard"><option>Instagram</option><option>Google search</option><option>A friend or BBN athlete</option><option>Tamara Vahn</option><option>D2 Photography</option><option>At a show</option><option>Gym flyer or business card</option><option>Other</option></select>
-      </label>
       <label for="about">Food likes, injuries, schedule<textarea id="about" placeholder="Example: train 5 days, 6 AM. No dairy. Old shoulder injury."></textarea></label>
       <div class="total"><span>Today</span><b id="total">$450</b></div>
       <button class="btn" type="submit">Send my sign-up</button>
@@ -536,7 +533,7 @@ footer img{height:56px;width:auto}
     var g=function(id){return document.getElementById(id).value.trim();};
     if(!g('name')||!/^\S+@\S+\.\S+$/.test(g('email'))){form.reportValidity();return;}
     var o=sel.options[sel.selectedIndex], btn=form.querySelector('button');
-    var data=new URLSearchParams({plan:o.text,name:g('name'),email:g('email'),phone:g('phone'),goal:g('goal'),division:g('division'),about:'Heard about BBN: '+g('heard')+'\n'+g('about'),company:g('company'),page:location.pathname});
+    var data=new URLSearchParams({plan:o.text,name:g('name'),email:g('email'),phone:g('phone'),goal:g('goal'),division:g('division'),about:g('about'),company:g('company'),page:location.pathname});
     btn.disabled=true; btn.textContent='Sending...';
     fetch(LEAD_URL,{method:'POST',mode:'no-cors',body:data}).then(function(){
       document.getElementById('done').hidden=false; btn.textContent='Sent';
