@@ -1,0 +1,191 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Smyth Prep Check-in</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700;800&family=Barlow:wght@400;500;600&display=swap">
+<style>[hidden]{display:none!important}
+/* Layout: one narrow column built for a thumb at night; each question is a tap row, notes optional. */
+:root{
+  --bg:#f3f5f9; --panel:#ffffff; --line:#d9dee8; --fg:#121722; --mute:#5b6577;
+  --accent:#2f6bff; --accent-fg:#ffffff; --good:#1f9d61; --warn:#c98a00; --bad:#d23f3f;
+  --display:"Saira Condensed","Arial Narrow",Impact,sans-serif; --body:"Barlow","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#070a10;--panel:#0f141e;--line:#232c3d;--fg:#eef2fa;--mute:#9aa6bd;--accent:#4d82ff;--accent-fg:#ffffff;--good:#3cc985;--warn:#e7b23c;--bad:#ff6b6b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#070a10;--panel:#0f141e;--line:#232c3d;--fg:#eef2fa;--mute:#9aa6bd;--accent:#4d82ff;--accent-fg:#ffffff;--good:#3cc985;--warn:#e7b23c;--bad:#ff6b6b;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.5 var(--body)}
+.wrap{max-width:560px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:14px}
+h1{font:800 34px/1 var(--display);text-transform:uppercase;letter-spacing:.5px;margin:0;text-wrap:balance}
+.sub{color:var(--mute);margin:4px 0 0;font-size:15px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:10px}
+.q{font:700 20px/1.1 var(--display);text-transform:uppercase;letter-spacing:.4px;margin:0;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.q small{font:500 13px var(--body);color:var(--mute);text-transform:none;letter-spacing:0}
+.row{display:grid;gap:6px}
+.lab{font-size:14px;color:var(--mute);font-weight:600}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+button.opt{min-height:44px;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:10px;font:600 15px var(--body);padding:8px 12px;cursor:pointer}
+button.opt[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+button.opt:focus-visible,input:focus-visible,textarea:focus-visible,.save:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.ends{display:flex;justify-content:space-between;font-size:12px;color:var(--mute)}
+input,textarea{width:100%;font:500 16px var(--body);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+textarea{min-height:44px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.save{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom,0px));min-height:52px;border:0;border-radius:12px;background:var(--accent);color:var(--accent-fg);font:800 20px var(--display);text-transform:uppercase;letter-spacing:.5px;cursor:pointer}
+.save.alt{position:static;background:transparent;color:var(--accent);border:1px solid var(--accent);font-size:17px;min-height:46px}
+.save[disabled]{opacity:.55;cursor:default}
+.status{font-size:14px;color:var(--mute);min-height:1.5em;text-align:center}
+.status.ok{color:var(--good)}.status.err{color:var(--bad)}
+.hist{display:grid;gap:8px}
+.entry{border-top:1px solid var(--line);padding-top:8px;display:grid;gap:2px;font-size:14px}
+.entry b{font:700 17px var(--display);text-transform:uppercase}
+.entry span{color:var(--mute)}
+.pill{display:inline-block;border-radius:999px;padding:1px 8px;font-size:12px;font-weight:600;border:1px solid var(--line);margin-right:4px}
+.lo{color:var(--bad);border-color:var(--bad)}.mid{color:var(--warn);border-color:var(--warn)}.hi{color:var(--good);border-color:var(--good)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+</head><body style="margin:0"><main class="wrap">
+  <header>
+    <h1>Nick Smyth check-in</h1>
+    <p class="sub">NPC Triumph Classic · Sat Nov 28 · Dania Beach · <b id="out"></b><br>Tap your answers each night, then hit <b>Text it to Coach Nick</b>.</p>
+  </header>
+
+  <section class="card">
+    <div class="two">
+      <label class="row"><span class="lab">Date</span><input id="date" type="date"></label>
+      <label class="row"><span class="lab">Fasted weight (lb)</span><input id="weight" type="number" inputmode="decimal" step="0.1" placeholder="lb"></label>
+    </div>
+  </section>
+
+  <section class="card" data-q="digestion">
+    <p class="q">1 · Digestion <small>BMs, bloating, distension</small></p>
+    <div class="chips" data-field="digestion" data-opts="Great|OK|Not great|Bad"></div>
+    <div class="chips" data-field="digestFlags" data-multi data-opts="Bloating|Distension|Irregular BMs"></div>
+    <textarea id="digestionNote" placeholder="Notes (optional)"></textarea>
+  </section>
+
+  <section class="card">
+    <p class="q">2 · Hunger + energy <small>through the day</small></p>
+    <div class="row"><span class="lab">Hunger</span><div class="scale" data-field="hunger" data-scale></div><div class="ends"><span>Not hungry</span><span>Starving</span></div></div>
+    <div class="row"><span class="lab">Energy</span><div class="scale" data-field="energy" data-scale></div><div class="ends"><span>Drained</span><span>Great</span></div></div>
+    <textarea id="hungerNote" placeholder="Notes (optional)"></textarea>
+  </section>
+
+  <section class="card">
+    <p class="q">3 · Training <small>strength + endurance</small></p>
+    <div class="row"><span class="lab">Strength</span><div class="chips" data-field="strength" data-opts="Up|Holding|Down"></div></div>
+    <div class="row"><span class="lab">Endurance</span><div class="chips" data-field="endurance" data-opts="Up|Holding|Down"></div></div>
+    <textarea id="trainingNote" placeholder="Notes (optional)"></textarea>
+  </section>
+
+  <section class="card">
+    <p class="q">4 · Recovery <small>sleep, soreness, mood</small></p>
+    <div class="row"><span class="lab">Sleep</span><div class="scale" data-field="sleep" data-scale></div><div class="ends"><span>Awful</span><span>Great</span></div></div>
+    <div class="row"><span class="lab">Soreness</span><div class="scale" data-field="soreness" data-scale></div><div class="ends"><span>None</span><span>Very sore</span></div></div>
+    <div class="row"><span class="lab">Mood</span><div class="scale" data-field="mood" data-scale></div><div class="ends"><span>Awful</span><span>Great</span></div></div>
+    <textarea id="recoveryNote" placeholder="Notes (optional)"></textarea>
+  </section>
+
+  <section class="card">
+    <p class="q">5 · Midsection</p>
+    <div class="chips" data-field="midsection" data-opts="Tighter|Same|Softer|Bloated"></div>
+    <textarea id="midNote" placeholder="Notes (optional)"></textarea>
+  </section>
+
+  <section class="card">
+    <p class="q">Today's checklist</p>
+    <div class="chips" data-field="done" data-multi data-opts="Water 1 gal+|Cardio done|All meals on plan|Posing practice|Progress photos"></div>
+    <textarea id="other" placeholder="Anything else for Coach Nick?"></textarea>
+  </section>
+
+  <button class="save" id="text" type="button">Text it to Coach Nick</button>
+  <button class="save alt" id="save" type="button">Save tonight's check-in</button>
+  <p class="status" id="status" role="status"></p>
+
+  <section class="card" id="histCard">
+    <p class="q">This week <small id="histNote">loading…</small></p>
+    <div class="hist" id="hist"></div>
+  </section>
+</main>
+
+<script>
+const $=s=>document.querySelector(s);
+const NOTES=["digestionNote","hungerNote","trainingNote","recoveryNote","midNote","other"];
+const state={};
+function today(){const d=new Date();return new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10)}
+$("#date").value=today();
+
+document.querySelectorAll("[data-field]").forEach(box=>{
+  const f=box.dataset.field, multi=box.hasAttribute("data-multi");
+  const opts=box.hasAttribute("data-scale")?["1","2","3","4","5"]:box.dataset.opts.split("|");
+  state[f]=multi?[]:null;
+  opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o;b.setAttribute("aria-pressed","false");
+    b.onclick=()=>{ if(multi){const a=state[f];const i=a.indexOf(o);i<0?a.push(o):a.splice(i,1)} else state[f]=state[f]===o?null:o; paint(box,f)};
+    box.appendChild(b)});
+});
+function paint(box,f){const v=state[f];box.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(Array.isArray(v)?v.includes(b.textContent):v===b.textContent)))}
+function fill(d){
+  document.querySelectorAll("[data-field]").forEach(box=>{const f=box.dataset.field;const multi=box.hasAttribute("data-multi");state[f]=d&&d[f]!=null?(multi?[...d[f]]:String(d[f])):(multi?[]:null);paint(box,f)});
+  $("#weight").value=d&&d.weight?d.weight:""; NOTES.forEach(n=>$("#"+n).value=d&&d[n]?d[n]:"");
+}
+function collect(){
+  const o={date:$("#date").value,savedAt:new Date().toISOString()};
+  const w=parseFloat($("#weight").value); if(!isNaN(w)) o.weight=w;
+  Object.keys(state).forEach(k=>{const v=state[k]; if(Array.isArray(v)?v.length:v!=null) o[k]=/^[1-5]$/.test(v)?Number(v):v});
+  NOTES.forEach(n=>{const t=$("#"+n).value.trim(); if(t) o[n]=t});
+  return o;
+}
+const lvl=n=>n==null?"":n<=2?"lo":n==3?"mid":"hi";
+const lvlInv=n=>n==null?"":n>=4?"lo":n==3?"mid":"hi";
+function renderHist(docs){
+  const h=$("#hist"); h.textContent="";
+  if(!docs.length){$("#histNote").textContent="no entries yet";const p=document.createElement("p");p.className="sub";p.textContent="Your saved nights show up here, newest first.";h.appendChild(p);return}
+  $("#histNote").textContent=docs.length+" night"+(docs.length>1?"s":"");
+  docs.forEach(d=>{const e=document.createElement("div");e.className="entry";
+    const t=document.createElement("b");t.textContent=new Date(d.date+"T12:00").toLocaleDateString([], {weekday:"short",month:"short",day:"numeric"})+(d.weight?" · "+d.weight+" lb":"");e.appendChild(t);
+    const line=document.createElement("div");
+    [["Sleep",d.sleep,lvl],["Energy",d.energy,lvl],["Mood",d.mood,lvl],["Soreness",d.soreness,lvlInv]].forEach(([k,v,fn])=>{if(v==null)return;const s=document.createElement("span");s.className="pill "+fn(v);s.textContent=k+" "+v+"/5";line.appendChild(s)});
+    e.appendChild(line);
+    const txt=[d.digestion&&"Digestion: "+d.digestion,d.endurance&&"Endurance: "+d.endurance,d.midsection&&"Midsection: "+d.midsection].filter(Boolean).join(" · ");
+    if(txt){const s=document.createElement("span");s.textContent=txt;e.appendChild(s)}
+    e.onclick=()=>{$("#date").value=d.date;fill(d);window.scrollTo({top:0,behavior:"smooth"})};
+    h.appendChild(e)});
+}
+let db=null, latest={};
+(async()=>{
+  const timer=setTimeout(()=>{$("#histNote").textContent="can't reach saved entries yet"},10000);
+  db=await window.claude?.use("db");
+  if(!db){clearTimeout(timer);$("#histNote").textContent="use Text it to Coach Nick";$("#save").hidden=true;$("#histCard").hidden=true;return}
+  db.collection("checkins").orderBy("date","desc").limit(14).onSnapshot(s=>{
+    if(!s.metadata.fromCache) clearTimeout(timer);
+    const docs=s.docs.map(x=>x.data()); latest=Object.fromEntries(docs.map(d=>[d.date,d])); renderHist(docs);
+    const cur=latest[$("#date").value]; if(cur && !$("#save").dataset.dirty) fill(cur);
+  },e=>{clearTimeout(timer);$("#histNote").textContent="saved entries couldn't load"});
+})();
+document.addEventListener("click",e=>{if(e.target.closest(".opt"))$("#save").dataset.dirty="1"});
+document.addEventListener("input",()=>{$("#save").dataset.dirty="1"});
+$("#date").addEventListener("change",()=>{delete $("#save").dataset.dirty;fill(latest[$("#date").value]||null)});
+$("#save").onclick=async()=>{
+  if(!db) return; const o=collect(); const st=$("#status");
+  if(!o.date){st.className="status err";st.textContent="Pick a date first.";return}
+  $("#save").disabled=true; st.className="status"; st.textContent="Saving…";
+  try{await db.collection("checkins").doc(o.date).set(o); delete $("#save").dataset.dirty; st.className="status ok"; st.textContent="Saved. Coach Nick will see it.";}
+  catch(e){st.className="status err"; st.textContent=e&&e.code==="invalid_argument"?"Saving isn't open on this view. Use Text it to Coach Nick.":"Couldn't save. Check your connection and tap Save again.";}
+  finally{$("#save").disabled=false}
+};
+const SHOW=new Date("2026-11-28T12:00");
+(()=>{const d=Math.round((SHOW-new Date(today()+"T12:00"))/864e5);$("#out").textContent=d>0?d+" days out":d===0?"Show day!":"";})();
+function asText(o){
+  const L=["Nick Smyth check-in "+o.date+(o.weight?" - "+o.weight+" lb fasted":"")];
+  const s=(k,v)=>{if(v!=null&&!(Array.isArray(v)&&!v.length))L.push(k+": "+(Array.isArray(v)?v.join(", "):v))};
+  s("Digestion",[o.digestion,...(o.digestFlags||[])].filter(Boolean).join(", ")||null);s("Notes",o.digestionNote);
+  s("Hunger",o.hunger&&o.hunger+"/5");s("Energy",o.energy&&o.energy+"/5");s("Notes",o.hungerNote);
+  s("Strength",o.strength);s("Endurance",o.endurance);s("Notes",o.trainingNote);
+  s("Sleep",o.sleep&&o.sleep+"/5");s("Soreness",o.soreness&&o.soreness+"/5");s("Mood",o.mood&&o.mood+"/5");s("Notes",o.recoveryNote);
+  s("Midsection",o.midsection);s("Notes",o.midNote);s("Done today",o.done);s("Other",o.other);
+  return L.join("\n");
+}
+$("#text").onclick=()=>{const o=collect();location.href="sms:+18592307440&body="+encodeURIComponent(asText(o));if(db)db.collection("checkins").doc(o.date).set(o).catch(()=>{});};
+</script>
+
+</body></html>
